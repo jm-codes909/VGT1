@@ -1,1 +1,32 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Online Test</title>
+    <script>
+        function login() {
+            const users = {
+                "Anwarul": "Anw@1234",
+                "Jaani": "Ja@4321"
+            };
+            
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+            
+            if (users[username] && users[username] === password) {
+                localStorage.setItem("currentUser", username);
+                window.location.href = "test.html";
+            } else {
+                alert("Invalid Username or Password");
+            }
+        }
+    </script>
+</head>
+<body>
+    <h2>Login to Start the Test</h2>
+    <input type="text" id="username" placeholder="Enter Username" required>
+    <input type="password" id="password" placeholder="Enter Password" required>
+    <button onclick="login()">Login</button>
+</body>
+</html>

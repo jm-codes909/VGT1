@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Test</title>
+    <script>
+        function submitTest() {
+            let correctAnswers = ["B", "C", "A", "D"]; // Correct answers
+            let score = 0;
+
+            for (let i = 1; i <= 4; i++) {
+                let selected = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selected) {
+                    if (selected.value === correctAnswers[i - 1]) {
+                        score += 15;
+                    } else {
+                        score -= 25;
+                    }
+                }
+            }
+
+            let user = localStorage.getItem("currentUser");
+            localStorage.setItem(`score_${user}`, score);
+            alert("Test submitted successfully!");
+            window.location.href = "index.html"; // Redirect to login page after submission
+        }
+    </script>
+</head>
+<body>
+    <h2>Online Test</h2>
+
+    <p>1. What is the gravitational force formula?</p>
+    <input type="radio" name="q1" value="A"> A) F = ma <br>
+    <input type="radio" name="q1" value="B"> B) F = G(m1*m2)/r² <br>
+    <input type="radio" name="q1" value="C"> C) P = IV <br>
+    <input type="radio" name="q1" value="D"> D) V = IR <br>
+
+    <p>2. What is the mole concept?</p>
+    <input type="radio" name="q2" value="A"> A) 1 Mole = 6.023 × 10²² <br>
+    <input type="radio" name="q2" value="B"> B) 1 Mole = 6.023 × 10¹⁰ <br>
+    <input type="radio" name="q2" value="C"> C) 1 Mole = 6.023 × 10²³ <br>
+    <input type="radio" name="q2" value="D"> D) 1 Mole = 6.023 × 10¹⁹ <br>
+
+    <p>3. Which part of the plant performs photosynthesis?</p>
+    <input type="radio" name="q3" value="A"> A) Leaf <br>
+    <input type="radio" name="q3" value="B"> B) Root <br>
+    <input type="radio" name="q3" value="C"> C) Stem <br>
+    <input type="radio" name="q3" value="D"> D) Flower <br>
+
+    <p>4. How many ways can 4 people sit in 4 chairs?</p>
+    <input type="radio" name="q4" value="A"> A) 4 <br>
+    <input type="radio" name="q4" value="B"> B) 16 <br>
+    <input type="radio" name="q4" value="C"> C) 24 <br>
+    <input type="radio" name="q4" value="D"> D) 4! <br>
+
+    <button onclick="submitTest()">Submit Test</button>
+</body>
+</html>

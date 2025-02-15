@@ -4,11 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Online Test</title>
+    <link rel="stylesheet" href="style.css">
     <script>
-        function submitTest() {
-            let correctAnswers = ["B", "C", "A", "D"]; // Correct answers
-            let score = 0;
+        let correctAnswers = ["B", "C", "A", "D"];
+        let score = 0;
+        let user = localStorage.getItem("currentUser");
 
+        // Prevent Screenshot
+        document.addEventListener("keyup", (e) => {
+            if (e.key === "PrintScreen") {
+                alert("Screenshots are not allowed!");
+                return false;
+            }
+        });
+
+        // Prevent Tab Switching
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+                alert("You switched the tab. Test cancelled!");
+                localStorage.setItem(`completed_${user}`, "true");
+                window.location.href = "index.html";
+            }
+        });
+
+        function submitTest() {
             for (let i = 1; i <= 4; i++) {
                 let selected = document.querySelector(`input[name="q${i}"]:checked`);
                 if (selected) {
@@ -20,40 +39,42 @@
                 }
             }
 
-            let user = localStorage.getItem("currentUser");
             localStorage.setItem(`score_${user}`, score);
+            localStorage.setItem(`completed_${user}`, "true");
             alert("Test submitted successfully!");
-            window.location.href = "index.html"; // Redirect to login page after submission
+            window.location.href = "index.html";
         }
     </script>
 </head>
 <body>
-    <h2>Online Test</h2>
+    <div class="container">
+        <h2>Online Test</h2>
 
-    <p>1. What is the gravitational force formula?</p>
-    <input type="radio" name="q1" value="A"> A) F = ma <br>
-    <input type="radio" name="q1" value="B"> B) F = G(m1*m2)/r² <br>
-    <input type="radio" name="q1" value="C"> C) P = IV <br>
-    <input type="radio" name="q1" value="D"> D) V = IR <br>
+        <p>1. What is the gravitational force formula?</p>
+        <label><input type="radio" name="q1" value="A"> A) F = ma</label><br>
+        <label><input type="radio" name="q1" value="B"> B) F = G(m1*m2)/r²</label><br>
+        <label><input type="radio" name="q1" value="C"> C) P = IV</label><br>
+        <label><input type="radio" name="q1" value="D"> D) V = IR</label><br>
 
-    <p>2. What is the mole concept?</p>
-    <input type="radio" name="q2" value="A"> A) 1 Mole = 6.023 × 10²² <br>
-    <input type="radio" name="q2" value="B"> B) 1 Mole = 6.023 × 10¹⁰ <br>
-    <input type="radio" name="q2" value="C"> C) 1 Mole = 6.023 × 10²³ <br>
-    <input type="radio" name="q2" value="D"> D) 1 Mole = 6.023 × 10¹⁹ <br>
+        <p>2. What is the mole concept?</p>
+        <label><input type="radio" name="q2" value="A"> A) 1 Mole = 6.023 × 10²²</label><br>
+        <label><input type="radio" name="q2" value="B"> B) 1 Mole = 6.023 × 10¹⁰</label><br>
+        <label><input type="radio" name="q2" value="C"> C) 1 Mole = 6.023 × 10²³</label><br>
+        <label><input type="radio" name="q2" value="D"> D) 1 Mole = 6.023 × 10¹⁹</label><br>
 
-    <p>3. Which part of the plant performs photosynthesis?</p>
-    <input type="radio" name="q3" value="A"> A) Leaf <br>
-    <input type="radio" name="q3" value="B"> B) Root <br>
-    <input type="radio" name="q3" value="C"> C) Stem <br>
-    <input type="radio" name="q3" value="D"> D) Flower <br>
+        <p>3. Which part of the plant performs photosynthesis?</p>
+        <label><input type="radio" name="q3" value="A"> A) Leaf</label><br>
+        <label><input type="radio" name="q3" value="B"> B) Root</label><br>
+        <label><input type="radio" name="q3" value="C"> C) Stem</label><br>
+        <label><input type="radio" name="q3" value="D"> D) Flower</label><br>
 
-    <p>4. How many ways can 4 people sit in 4 chairs?</p>
-    <input type="radio" name="q4" value="A"> A) 4 <br>
-    <input type="radio" name="q4" value="B"> B) 16 <br>
-    <input type="radio" name="q4" value="C"> C) 24 <br>
-    <input type="radio" name="q4" value="D"> D) 4! <br>
+        <p>4. How many ways can 4 people sit in 4 chairs?</p>
+        <label><input type="radio" name="q4" value="A"> A) 4</label><br>
+        <label><input type="radio" name="q4" value="B"> B) 16</label><br>
+        <label><input type="radio" name="q4" value="C"> C) 24</label><br>
+        <label><input type="radio" name="q4" value="D"> D) 4!</label><br>
 
-    <button onclick="submitTest()">Submit Test</button>
+        <button onclick="submitTest()">Submit Test</button>
+    </div>
 </body>
 </html>

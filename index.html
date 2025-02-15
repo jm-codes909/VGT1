@@ -1,9 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Online Test</title>
+    <link rel="stylesheet" href="style.css">
     <script>
         function login() {
             const users = {
@@ -15,8 +17,12 @@
             let password = document.getElementById("password").value;
             
             if (users[username] && users[username] === password) {
-                localStorage.setItem("currentUser", username);
-                window.location.href = "test.html";
+                if (localStorage.getItem(`completed_${username}`)) {
+                    alert("You have already attempted the test.");
+                } else {
+                    localStorage.setItem("currentUser", username);
+                    window.location.href = "test.html";
+                }
             } else {
                 alert("Invalid Username or Password");
             }
@@ -24,9 +30,11 @@
     </script>
 </head>
 <body>
-    <h2>Login to Start the Test</h2>
-    <input type="text" id="username" placeholder="Enter Username" required>
-    <input type="password" id="password" placeholder="Enter Password" required>
-    <button onclick="login()">Login</button>
+    <div class="container">
+        <h2>Login to Start the Test</h2>
+        <input type="text" id="username" placeholder="Enter Username">
+        <input type="password" id="password" placeholder="Enter Password">
+        <button onclick="login()">Login</button>
+    </div>
 </body>
 </html>
